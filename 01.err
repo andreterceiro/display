@@ -1,0 +1,13 @@
+Warning[215] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 7 : Processor superseded by command line.  Verify processor symbol.
+Warning[207] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 9 : Found label after column 1. (vardelay1)
+Warning[207] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 10 : Found label after column 1. (vardelay2)
+Warning[207] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 11 : Found label after column 1. (vardelay3)
+Warning[207] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 12 : Found label after column 1. (vardelay4)
+Message[302] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 91 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 93 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 98 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 99 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 100 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 101 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 102 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[205] C:\DOCUMENTS AND SETTINGS\USUARIO\DESKTOP\DISPLAY\MICROCHIP\DISPLAY16F887\01.ASM 1203 : Found directive in column 1. (end)

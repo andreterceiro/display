@@ -1,0 +1,1953 @@
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001         include "p16f887.inc"
+                      00001         LIST
+                      00002 ; P16F887.INC  Standard Header File, Version 1.00    Microchip Technology, Inc.
+                      00617         LIST
+                      00002 
+                      00003                 ;__CONFIG _DEBUG_ON  & _LVP_OFF & _FCMEN_OFF & _IESO_OFF & _BOR_OFF & _CPD_OFF & _CP_OFF
+                             & _MCLRE_OFF & _PWRTE_ON & _WDT_OFF & _WRT_OFF & _BOR21V
+                      00004                 ;__CONFIG _INTRC_OSC_OCLKOUT
+2007   2FF4           00005                 __config _CONFIG1, _INTRC_OSC_NOCLKOUT & _WDT_OFF & _MCLRE_ON & _LVP_OFF & _CP_OFF
+                      00006 
+Warning[215]: Processor superseded by command line.  Verify processor symbol.
+                      00007         list P=PIC16f887A
+                      00008 
+Warning[207]: Found label after column 1. (vardelay1)
+  00000020            00009                 vardelay1               EQU             H'20'
+Warning[207]: Found label after column 1. (vardelay2)
+  00000021            00010                 vardelay2               EQU             H'21'
+Warning[207]: Found label after column 1. (vardelay3)
+  00000022            00011                 vardelay3               EQU             H'22'
+Warning[207]: Found label after column 1. (vardelay4)
+  00000023            00012                 vardelay4               EQU             H'23'
+                      00013                 #define                 LED1                    PORTA, 0        
+                      00014                 #define                 LED2                    PORTA, 1        
+                      00015                 #define                 LED3                    PORTA, 2        
+                      00016                 #define                 LED4                    PORTA, 3        
+                      00017                 #define                 LED5                    PORTA, 4        
+                      00018                 #define                 LED6                    PORTA, 5        
+                      00019                 #define                 LED7                    PORTE, 0        
+                      00020                 #define                 LED8                    PORTE, 1        
+                      00021                 #define                 LED9                    PORTC, 0        
+                      00022                 #define                 LED10                   PORTC, 1        
+                      00023                 #define                 LED11                   PORTC, 2        
+                      00024                 #define                 LED12                   PORTC, 3        
+                      00025                 #define                 LED13                   PORTD, 0        
+                      00026                 #define                 LED14                   PORTD, 1        
+                      00027                 #define                 LED15                   PORTD, 2        
+                      00028                 #define                 LED16                   PORTD, 3        
+                      00029                 #define                 LED17                   PORTC, 4        
+                      00030                 #define                 LED18                   PORTC, 5        
+                      00031                 #define                 LED19                   PORTC, 6        
+                      00032                 #define                 LED20                   PORTC, 7        
+                      00033                 #define                 LED21                   PORTD, 4        
+                      00034                 #define                 LED22                   PORTD, 5        
+                      00035                 #define                 LED23                   PORTD, 6        
+                      00036                 #define                 LED24                   PORTD, 7
+                      00037                 #define                 LED25                   PORTB, 0        
+                      00038                 #define                 LED26                   PORTB, 1        
+                      00039                 #define                 LED27                   PORTB, 2        
+                      00040                 #define                 LED28                   PORTB, 3        
+                      00041                 #define                 LED29                   PORTB, 4        
+                      00042                 #define                 LED30                   PORTB, 5        
+                      00043                 #define                 LED31                   PORTB, 6        
+                      00044                 #define                 LED32                   PORTB, 7        
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00045 
+                      00046                 #define                 ACENDER_LED1    bsf     LED1
+                      00047                 #define                 ACENDER_LED2    bsf     LED2
+                      00048                 #define                 ACENDER_LED3    bsf     LED3
+                      00049                 #define                 ACENDER_LED4    bsf     LED4
+                      00050                 #define                 ACENDER_LED5    bsf     LED5
+                      00051                 #define                 ACENDER_LED6    bsf     LED6
+                      00052                 #define                 ACENDER_LED7    bsf     LED7
+                      00053                 #define                 ACENDER_LED8    bsf     LED8
+                      00054                 #define                 ACENDER_LED9    bsf     LED9
+                      00055                 #define                 ACENDER_LED10   bsf     LED10
+                      00056                 #define                 ACENDER_LED11   bsf     LED11
+                      00057                 #define                 ACENDER_LED12   bsf     LED12
+                      00058                 #define                 ACENDER_LED13   bsf     LED13
+                      00059                 #define                 ACENDER_LED14   bsf     LED14
+                      00060                 #define                 ACENDER_LED15   bsf     LED15
+                      00061                 #define                 ACENDER_LED16   bsf     LED16
+                      00062                 #define                 ACENDER_LED17   bsf     LED17
+                      00063                 #define                 ACENDER_LED18   bsf     LED18
+                      00064                 #define                 ACENDER_LED19   bsf     LED19
+                      00065                 #define                 ACENDER_LED20   bsf     LED20
+                      00066                 #define                 ACENDER_LED21   bsf     LED21
+                      00067                 #define                 ACENDER_LED22   bsf     LED22
+                      00068                 #define                 ACENDER_LED23   bsf     LED23
+                      00069                 #define                 ACENDER_LED24   bsf     LED24
+                      00070                 #define                 ACENDER_LED25   bsf     LED25
+                      00071                 #define                 ACENDER_LED26   bsf     LED26
+                      00072                 #define                 ACENDER_LED27   bsf     LED27
+                      00073                 #define                 ACENDER_LED28   bsf     LED28
+                      00074                 #define                 ACENDER_LED29   bsf     LED29
+                      00075                 #define                 ACENDER_LED30   bsf     LED30
+                      00076                 #define                 ACENDER_LED31   bsf     LED31
+                      00077                 #define                 ACENDER_LED32   bsf     LED32
+                      00078 
+                      00079         ; Start at the reset vector
+0000                  00080         org     0x000
+0000   2805           00081                 goto    Start
+0004                  00082         org     0x004
+0004                  00083 Interrupt
+0004   0009           00084         retfie
+                      00085 
+0005                  00086 Start
+0005   1683           00087         bsf     STATUS,RP0      ;bank 1
+0006   1303           00088         bcf     STATUS,RP1
+                      00089 
+0007   1683 1703      00090                 BANKSEL ANSEL
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0009   0188           00091                 CLRF    ANSEL
+000A   1683 1703      00092                 BANKSEL ANSELH
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000C   0189           00093                 CLRF    ANSELH
+                      00094 
+000D   1683 1303      00095                 BANKSEL TRISA
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00096 
+000F   3000           00097         movlw   H'00'
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0010   0085           00098         movwf   TRISA          
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0011   0086           00099         movwf   TRISB          
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0012   0087           00100         movwf   TRISC           
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0013   0088           00101         movwf   TRISD           
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0014   0089           00102         movwf   TRISE
+                      00103 
+0015   1283 1303      00104                 BANKSEL PORTA
+0017   0085           00105         movwf   PORTA          
+0018   0086           00106         movwf   PORTB          
+0019   0087           00107         movwf   PORTC           
+001A   0088           00108         movwf   PORTD           
+001B   0089           00109         movwf   PORTE
+                      00110 
+001C                  00111 Main
+001C   209E           00112                 call    Horario_1Grupo
+001D   209E           00113                 call    Horario_1Grupo
+001E   209E           00114                 call    Horario_1Grupo
+                      00115                 
+001F   215F           00116                 call    AntiHorario_1Grupo
+0020   215F           00117                 call    AntiHorario_1Grupo
+0021   215F           00118                 call    AntiHorario_1Grupo
+                      00119                 
+0022   209E           00120                 call    Horario_1Grupo
+0023   215F           00121                 call    AntiHorario_1Grupo
+0024   209E           00122                 call    Horario_1Grupo
+0025   215F           00123                 call    AntiHorario_1Grupo
+0026   209E           00124                 call    Horario_1Grupo
+0027   215F           00125                 call    AntiHorario_1Grupo
+                      00126 
+0028   215F           00127                 call    AntiHorario_1Grupo
+0029   209E           00128                 call    Horario_1Grupo
+002A   215F           00129                 call    AntiHorario_1Grupo
+002B   209E           00130                 call    Horario_1Grupo
+002C   215F           00131                 call    AntiHorario_1Grupo
+002D   209E           00132                 call    Horario_1Grupo
+                      00133 
+002E   2220           00134                 call    Horario_2Grupos
+002F   2220           00135                 call    Horario_2Grupos
+0030   2220           00136                 call    Horario_2Grupos
+0031   2220           00137                 call    Horario_2Grupos
+0032   2220           00138                 call    Horario_2Grupos
+0033   2220           00139                 call    Horario_2Grupos
+                      00140 
+0034   22A1           00141                 call    AntiHorario_2Grupos
+0035   22A1           00142                 call    AntiHorario_2Grupos
+0036   22A1           00143                 call    AntiHorario_2Grupos
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0037   22A1           00144                 call    AntiHorario_2Grupos
+0038   22A1           00145                 call    AntiHorario_2Grupos
+0039   22A1           00146                 call    AntiHorario_2Grupos
+                      00147 
+003A   2220           00148                 call    Horario_2Grupos
+003B   22A1           00149                 call    AntiHorario_2Grupos
+003C   2220           00150                 call    Horario_2Grupos
+003D   22A1           00151                 call    AntiHorario_2Grupos
+003E   2220           00152                 call    Horario_2Grupos
+003F   22A1           00153                 call    AntiHorario_2Grupos
+0040   2220           00154                 call    Horario_2Grupos
+0041   22A1           00155                 call    AntiHorario_2Grupos
+0042   2220           00156                 call    Horario_2Grupos
+0043   22A1           00157                 call    AntiHorario_2Grupos
+0044   2220           00158                 call    Horario_2Grupos
+0045   22A1           00159                 call    AntiHorario_2Grupos
+                      00160 
+0046   22A1           00161                 call    AntiHorario_2Grupos
+0047   2220           00162                 call    Horario_2Grupos
+0048   22A1           00163                 call    AntiHorario_2Grupos
+0049   2220           00164                 call    Horario_2Grupos
+004A   22A1           00165                 call    AntiHorario_2Grupos
+004B   2220           00166                 call    Horario_2Grupos
+004C   22A1           00167                 call    AntiHorario_2Grupos
+004D   2220           00168                 call    Horario_2Grupos
+004E   22A1           00169                 call    AntiHorario_2Grupos
+004F   2220           00170                 call    Horario_2Grupos
+0050   22A1           00171                 call    AntiHorario_2Grupos
+0051   2220           00172                 call    Horario_2Grupos
+                      00173 
+                      00174 
+0052   2322           00175                 call    Horario_4Grupos
+0053   2322           00176                 call    Horario_4Grupos
+0054   2322           00177                 call    Horario_4Grupos
+0055   2322           00178                 call    Horario_4Grupos
+0056   2322           00179                 call    Horario_4Grupos
+0057   2322           00180                 call    Horario_4Grupos
+0058   2322           00181                 call    Horario_4Grupos
+0059   2322           00182                 call    Horario_4Grupos
+005A   2322           00183                 call    Horario_4Grupos
+005B   2322           00184                 call    Horario_4Grupos
+005C   2322           00185                 call    Horario_4Grupos
+005D   2322           00186                 call    Horario_4Grupos
+                      00187 
+005E   2373           00188                 call    AntiHorario_4Grupos
+005F   2373           00189                 call    AntiHorario_4Grupos
+0060   2373           00190                 call    AntiHorario_4Grupos
+0061   2373           00191                 call    AntiHorario_4Grupos
+0062   2373           00192                 call    AntiHorario_4Grupos
+0063   2373           00193                 call    AntiHorario_4Grupos
+0064   2373           00194                 call    AntiHorario_4Grupos
+0065   2373           00195                 call    AntiHorario_4Grupos
+0066   2373           00196                 call    AntiHorario_4Grupos
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0067   2373           00197                 call    AntiHorario_4Grupos
+0068   2373           00198                 call    AntiHorario_4Grupos
+0069   2373           00199                 call    AntiHorario_4Grupos
+                      00200 
+006A   2322           00201                 call    Horario_4Grupos
+006B   2373           00202                 call    AntiHorario_4Grupos
+006C   2322           00203                 call    Horario_4Grupos
+006D   2373           00204                 call    AntiHorario_4Grupos
+006E   2322           00205                 call    Horario_4Grupos
+006F   2373           00206                 call    AntiHorario_4Grupos
+0070   2322           00207                 call    Horario_4Grupos
+0071   2373           00208                 call    AntiHorario_4Grupos
+0072   2322           00209                 call    Horario_4Grupos
+0073   2373           00210                 call    AntiHorario_4Grupos
+0074   2322           00211                 call    Horario_4Grupos
+0075   2373           00212                 call    AntiHorario_4Grupos
+0076   2322           00213                 call    Horario_4Grupos
+0077   2373           00214                 call    AntiHorario_4Grupos
+0078   2322           00215                 call    Horario_4Grupos
+0079   2373           00216                 call    AntiHorario_4Grupos
+007A   2322           00217                 call    Horario_4Grupos
+007B   2373           00218                 call    AntiHorario_4Grupos
+                      00219 
+007C   2373           00220                 call    AntiHorario_4Grupos
+007D   2322           00221                 call    Horario_4Grupos
+007E   2373           00222                 call    AntiHorario_4Grupos
+007F   2322           00223                 call    Horario_4Grupos
+0080   2373           00224                 call    AntiHorario_4Grupos
+0081   2322           00225                 call    Horario_4Grupos
+0082   2373           00226                 call    AntiHorario_4Grupos
+0083   2322           00227                 call    Horario_4Grupos
+0084   2373           00228                 call    AntiHorario_4Grupos
+0085   2322           00229                 call    Horario_4Grupos
+0086   2373           00230                 call    AntiHorario_4Grupos
+0087   2322           00231                 call    Horario_4Grupos
+0088   2373           00232                 call    AntiHorario_4Grupos
+0089   2322           00233                 call    Horario_4Grupos
+008A   2373           00234                 call    AntiHorario_4Grupos
+008B   2322           00235                 call    Horario_4Grupos
+008C   2373           00236                 call    AntiHorario_4Grupos
+008D   2322           00237                 call    Horario_4Grupos
+                      00238 
+008E   281C           00239                 goto    Main
+                      00240 
+008F                  00241 Delay
+008F   305C           00242         movlw   H'5C'
+0090   00A0           00243         movwf   vardelay1
+0091   00A1           00244         movwf   vardelay2
+                      00245         ;movwf  vardelay3
+                      00246         ;movwf  vardelay4
+                      00247 
+0092   0BA0           00248         decfsz  vardelay1,F
+0093   2892           00249         goto    $-1
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0094   0BA1           00250         decfsz  vardelay2,F
+0095   2892           00251         goto    $-3
+                      00252         ;decfsz vardelay3,F
+                      00253         ;goto   $-5
+                      00254         
+0096   0008           00255         return
+                      00256 
+                      00257 
+0097                  00258 ZerarPortas
+0097   3000           00259         movlw   H'00'
+0098   0085           00260         movwf   PORTA
+0099   0086           00261         movwf   PORTB
+009A   0087           00262         movwf   PORTC
+009B   0088           00263         movwf   PORTD
+009C   0089           00264         movwf   PORTE
+009D   0008           00265         return
+                      00266 
+                      00267 
+                      00268 
+009E                  00269 Horario_1Grupo
+009E   2097           00270         call ZerarPortas
+009F   1405           00271         ACENDER_LED1
+00A0   1485           00272         ACENDER_LED2
+00A1   1505           00273         ACENDER_LED3
+00A2   1585           00274         ACENDER_LED4
+00A3   208F           00275         call    Delay
+                      00276 
+00A4   2097           00277         call ZerarPortas
+00A5   1485           00278         ACENDER_LED2
+00A6   1505           00279         ACENDER_LED3
+00A7   1585           00280         ACENDER_LED4
+00A8   1605           00281         ACENDER_LED5
+00A9   208F           00282         call    Delay
+                      00283 
+00AA   2097           00284         call ZerarPortas
+00AB   1505           00285         ACENDER_LED3
+00AC   1585           00286         ACENDER_LED4
+00AD   1605           00287         ACENDER_LED5
+00AE   1685           00288         ACENDER_LED6
+00AF   208F           00289         call    Delay
+                      00290 
+00B0   2097           00291         call ZerarPortas
+00B1   1585           00292         ACENDER_LED4
+00B2   1605           00293         ACENDER_LED5
+00B3   1685           00294         ACENDER_LED6
+00B4   1409           00295         ACENDER_LED7
+00B5   208F           00296         call    Delay
+                      00297 
+00B6   2097           00298         call ZerarPortas
+00B7   1605           00299         ACENDER_LED5
+00B8   1685           00300         ACENDER_LED6
+00B9   1409           00301         ACENDER_LED7
+00BA   1489           00302         ACENDER_LED8
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00BB   208F           00303         call    Delay
+                      00304 
+00BC   2097           00305         call ZerarPortas
+00BD   1685           00306         ACENDER_LED6
+00BE   1409           00307         ACENDER_LED7
+00BF   1489           00308         ACENDER_LED8
+00C0   1407           00309         ACENDER_LED9
+00C1   208F           00310         call    Delay
+                      00311 
+00C2   2097           00312         call ZerarPortas
+00C3   1409           00313         ACENDER_LED7
+00C4   1489           00314         ACENDER_LED8
+00C5   1407           00315         ACENDER_LED9
+00C6   1487           00316         ACENDER_LED10
+00C7   208F           00317         call    Delay
+                      00318         
+00C8   2097           00319         call ZerarPortas
+00C9   1489           00320         ACENDER_LED8
+00CA   1407           00321         ACENDER_LED9
+00CB   1487           00322         ACENDER_LED10
+00CC   1507           00323         ACENDER_LED11
+00CD   208F           00324         call    Delay
+                      00325 
+00CE   2097           00326         call ZerarPortas
+00CF   1407           00327         ACENDER_LED9
+00D0   1487           00328         ACENDER_LED10
+00D1   1507           00329         ACENDER_LED11
+00D2   1587           00330         ACENDER_LED12
+00D3   208F           00331         call    Delay
+                      00332 
+00D4   2097           00333         call ZerarPortas
+00D5   1487           00334         ACENDER_LED10
+00D6   1507           00335         ACENDER_LED11
+00D7   1587           00336         ACENDER_LED12
+00D8   1408           00337         ACENDER_LED13
+00D9   208F           00338         call    Delay
+                      00339 
+00DA   2097           00340         call ZerarPortas
+00DB   1507           00341         ACENDER_LED11
+00DC   1587           00342         ACENDER_LED12
+00DD   1408           00343         ACENDER_LED13
+00DE   1488           00344         ACENDER_LED14
+00DF   208F           00345         call    Delay
+                      00346 
+00E0   2097           00347         call ZerarPortas
+00E1   1587           00348         ACENDER_LED12
+00E2   1408           00349         ACENDER_LED13
+00E3   1488           00350         ACENDER_LED14
+00E4   1508           00351         ACENDER_LED15
+00E5   208F           00352         call    Delay
+                      00353 
+00E6   2097           00354         call ZerarPortas
+00E7   1408           00355         ACENDER_LED13
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00E8   1488           00356         ACENDER_LED14
+00E9   1508           00357         ACENDER_LED15
+00EA   1588           00358         ACENDER_LED16
+00EB   208F           00359         call    Delay
+                      00360 
+00EC   2097           00361         call ZerarPortas
+00ED   1488           00362         ACENDER_LED14
+00EE   1508           00363         ACENDER_LED15
+00EF   1588           00364         ACENDER_LED16
+00F0   1607           00365         ACENDER_LED17
+00F1   208F           00366         call    Delay
+                      00367 
+00F2   2097           00368         call ZerarPortas
+00F3   1508           00369         ACENDER_LED15
+00F4   1588           00370         ACENDER_LED16
+00F5   1607           00371         ACENDER_LED17
+00F6   1687           00372         ACENDER_LED18
+00F7   208F           00373         call    Delay
+                      00374 
+00F8   2097           00375         call ZerarPortas
+00F9   1588           00376         ACENDER_LED16
+00FA   1607           00377         ACENDER_LED17
+00FB   1687           00378         ACENDER_LED18
+00FC   1707           00379         ACENDER_LED19
+00FD   208F           00380         call    Delay
+                      00381 
+00FE   2097           00382         call ZerarPortas
+00FF   1607           00383         ACENDER_LED17
+0100   1687           00384         ACENDER_LED18
+0101   1707           00385         ACENDER_LED19
+0102   1787           00386         ACENDER_LED20
+0103   208F           00387         call    Delay
+                      00388 
+0104   2097           00389         call ZerarPortas
+0105   1687           00390         ACENDER_LED18
+0106   1707           00391         ACENDER_LED19
+0107   1787           00392         ACENDER_LED20
+0108   1608           00393         ACENDER_LED21
+0109   208F           00394         call    Delay
+                      00395 
+010A   2097           00396         call ZerarPortas
+010B   1707           00397         ACENDER_LED19
+010C   1787           00398         ACENDER_LED20
+010D   1608           00399         ACENDER_LED21
+010E   1688           00400         ACENDER_LED22
+010F   208F           00401         call    Delay
+                      00402 
+0110   2097           00403         call ZerarPortas
+0111   1787           00404         ACENDER_LED20
+0112   1608           00405         ACENDER_LED21
+0113   1688           00406         ACENDER_LED22
+0114   1708           00407         ACENDER_LED23
+0115   208F           00408         call    Delay
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00409 
+0116   2097           00410         call ZerarPortas
+0117   1608           00411         ACENDER_LED21
+0118   1688           00412         ACENDER_LED22
+0119   1708           00413         ACENDER_LED23
+011A   1788           00414         ACENDER_LED24
+011B   208F           00415         call    Delay
+                      00416 
+011C   2097           00417         call ZerarPortas
+011D   1688           00418         ACENDER_LED22
+011E   1708           00419         ACENDER_LED23
+011F   1788           00420         ACENDER_LED24
+0120   1406           00421         ACENDER_LED25
+0121   208F           00422         call    Delay
+                      00423 
+0122   2097           00424         call ZerarPortas
+0123   1708           00425         ACENDER_LED23
+0124   1788           00426         ACENDER_LED24
+0125   1406           00427         ACENDER_LED25
+0126   1486           00428         ACENDER_LED26
+0127   208F           00429         call    Delay
+                      00430 
+0128   2097           00431         call ZerarPortas
+0129   1788           00432         ACENDER_LED24
+012A   1406           00433         ACENDER_LED25
+012B   1486           00434         ACENDER_LED26
+012C   1506           00435         ACENDER_LED27
+012D   208F           00436         call    Delay
+                      00437 
+012E   2097           00438         call ZerarPortas
+012F   1406           00439         ACENDER_LED25
+0130   1486           00440         ACENDER_LED26
+0131   1506           00441         ACENDER_LED27
+0132   1586           00442         ACENDER_LED28
+0133   208F           00443         call    Delay
+                      00444 
+0134   2097           00445         call ZerarPortas
+0135   1486           00446         ACENDER_LED26
+0136   1506           00447         ACENDER_LED27
+0137   1586           00448         ACENDER_LED28
+0138   1606           00449         ACENDER_LED29
+0139   208F           00450         call    Delay
+                      00451 
+013A   2097           00452         call ZerarPortas
+013B   1506           00453         ACENDER_LED27
+013C   1586           00454         ACENDER_LED28
+013D   1606           00455         ACENDER_LED29
+013E   1686           00456         ACENDER_LED30
+013F   208F           00457         call    Delay
+                      00458 
+0140   2097           00459         call ZerarPortas
+0141   1586           00460         ACENDER_LED28
+0142   1606           00461         ACENDER_LED29
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0143   1686           00462         ACENDER_LED30
+0144   1706           00463         ACENDER_LED31
+0145   208F           00464         call    Delay
+                      00465 
+0146   2097           00466         call ZerarPortas
+0147   1606           00467         ACENDER_LED29
+0148   1686           00468         ACENDER_LED30
+0149   1706           00469         ACENDER_LED31
+014A   1786           00470         ACENDER_LED32
+014B   208F           00471         call    Delay
+                      00472 
+014C   2097           00473         call ZerarPortas
+014D   1686           00474         ACENDER_LED30
+014E   1706           00475         ACENDER_LED31
+014F   1786           00476         ACENDER_LED32
+0150   1405           00477         ACENDER_LED1
+0151   208F           00478         call    Delay
+                      00479 
+0152   2097           00480         call ZerarPortas
+0153   1706           00481         ACENDER_LED31
+0154   1786           00482         ACENDER_LED32
+0155   1405           00483         ACENDER_LED1
+0156   1485           00484         ACENDER_LED2
+0157   208F           00485         call    Delay
+                      00486 
+0158   2097           00487         call ZerarPortas
+0159   1786           00488         ACENDER_LED32
+015A   1405           00489         ACENDER_LED1
+015B   1485           00490         ACENDER_LED2
+015C   1505           00491         ACENDER_LED3
+015D   208F           00492         call    Delay
+                      00493 
+015E   0008           00494         return
+                      00495 
+                      00496 
+                      00497 
+015F                  00498 AntiHorario_1Grupo
+015F   2097           00499         call ZerarPortas
+0160   1585           00500         ACENDER_LED4
+0161   1505           00501         ACENDER_LED3
+0162   1485           00502         ACENDER_LED2
+0163   1405           00503         ACENDER_LED1
+0164   208F           00504         call    Delay
+                      00505 
+0165   2097           00506         call ZerarPortas
+0166   1505           00507         ACENDER_LED3
+0167   1485           00508         ACENDER_LED2
+0168   1405           00509         ACENDER_LED1
+0169   1786           00510         ACENDER_LED32
+016A   208F           00511         call    Delay
+                      00512 
+016B   2097           00513         call ZerarPortas
+016C   1485           00514         ACENDER_LED2
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+016D   1405           00515         ACENDER_LED1
+016E   1786           00516         ACENDER_LED32
+016F   1706           00517         ACENDER_LED31
+0170   208F           00518         call    Delay
+                      00519 
+0171   2097           00520         call ZerarPortas
+0172   1405           00521         ACENDER_LED1
+0173   1786           00522         ACENDER_LED32
+0174   1706           00523         ACENDER_LED31
+0175   1686           00524         ACENDER_LED30
+0176   208F           00525         call    Delay
+                      00526 
+0177   2097           00527         call ZerarPortas
+0178   1786           00528         ACENDER_LED32
+0179   1706           00529         ACENDER_LED31
+017A   1686           00530         ACENDER_LED30
+017B   1606           00531         ACENDER_LED29
+017C   208F           00532         call    Delay
+                      00533 
+017D   2097           00534         call ZerarPortas
+017E   1706           00535         ACENDER_LED31
+017F   1686           00536         ACENDER_LED30
+0180   1606           00537         ACENDER_LED29
+0181   1586           00538         ACENDER_LED28
+0182   208F           00539         call    Delay
+                      00540 
+0183   2097           00541         call ZerarPortas
+0184   1686           00542         ACENDER_LED30
+0185   1606           00543         ACENDER_LED29
+0186   1586           00544         ACENDER_LED28
+0187   1506           00545         ACENDER_LED27
+0188   208F           00546         call    Delay
+                      00547         
+0189   2097           00548         call ZerarPortas
+018A   1606           00549         ACENDER_LED29
+018B   1586           00550         ACENDER_LED28
+018C   1506           00551         ACENDER_LED27
+018D   1486           00552         ACENDER_LED26
+018E   208F           00553         call    Delay
+                      00554 
+018F   2097           00555         call ZerarPortas
+0190   1586           00556         ACENDER_LED28
+0191   1506           00557         ACENDER_LED27
+0192   1486           00558         ACENDER_LED26
+0193   1406           00559         ACENDER_LED25
+0194   208F           00560         call    Delay
+                      00561 
+0195   2097           00562         call ZerarPortas
+0196   1506           00563         ACENDER_LED27
+0197   1486           00564         ACENDER_LED26
+0198   1406           00565         ACENDER_LED25
+0199   1788           00566         ACENDER_LED24
+019A   208F           00567         call    Delay
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00568 
+019B   2097           00569         call ZerarPortas
+019C   1486           00570         ACENDER_LED26
+019D   1406           00571         ACENDER_LED25
+019E   1788           00572         ACENDER_LED24
+019F   1708           00573         ACENDER_LED23
+01A0   208F           00574         call    Delay
+                      00575 
+01A1   2097           00576         call ZerarPortas
+01A2   1406           00577         ACENDER_LED25
+01A3   1788           00578         ACENDER_LED24
+01A4   1708           00579         ACENDER_LED23
+01A5   1688           00580         ACENDER_LED22
+01A6   208F           00581         call    Delay
+                      00582 
+01A7   2097           00583         call ZerarPortas
+01A8   1788           00584         ACENDER_LED24
+01A9   1708           00585         ACENDER_LED23
+01AA   1688           00586         ACENDER_LED22
+01AB   1608           00587         ACENDER_LED21
+01AC   208F           00588         call    Delay
+                      00589 
+01AD   2097           00590         call ZerarPortas
+01AE   1708           00591         ACENDER_LED23
+01AF   1688           00592         ACENDER_LED22
+01B0   1608           00593         ACENDER_LED21
+01B1   1787           00594         ACENDER_LED20
+01B2   208F           00595         call    Delay
+                      00596 
+01B3   2097           00597         call ZerarPortas
+01B4   1688           00598         ACENDER_LED22
+01B5   1608           00599         ACENDER_LED21
+01B6   1787           00600         ACENDER_LED20
+01B7   1707           00601         ACENDER_LED19
+01B8   208F           00602         call    Delay
+                      00603 
+01B9   2097           00604         call ZerarPortas
+01BA   1608           00605         ACENDER_LED21
+01BB   1787           00606         ACENDER_LED20
+01BC   1707           00607         ACENDER_LED19
+01BD   1687           00608         ACENDER_LED18
+01BE   208F           00609         call    Delay
+                      00610 
+01BF   2097           00611         call ZerarPortas
+01C0   1787           00612         ACENDER_LED20
+01C1   1707           00613         ACENDER_LED19
+01C2   1687           00614         ACENDER_LED18
+01C3   1607           00615         ACENDER_LED17
+01C4   208F           00616         call    Delay
+                      00617 
+01C5   2097           00618         call ZerarPortas
+01C6   1707           00619         ACENDER_LED19
+01C7   1687           00620         ACENDER_LED18
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01C8   1607           00621         ACENDER_LED17
+01C9   1588           00622         ACENDER_LED16
+01CA   208F           00623         call    Delay
+                      00624 
+01CB   2097           00625         call ZerarPortas
+01CC   1687           00626         ACENDER_LED18
+01CD   1607           00627         ACENDER_LED17
+01CE   1588           00628         ACENDER_LED16
+01CF   1508           00629         ACENDER_LED15
+01D0   208F           00630         call    Delay
+                      00631 
+01D1   2097           00632         call ZerarPortas
+01D2   1607           00633         ACENDER_LED17
+01D3   1588           00634         ACENDER_LED16
+01D4   1508           00635         ACENDER_LED15
+01D5   1488           00636         ACENDER_LED14
+01D6   208F           00637         call    Delay
+                      00638 
+01D7   2097           00639         call ZerarPortas
+01D8   1588           00640         ACENDER_LED16
+01D9   1508           00641         ACENDER_LED15
+01DA   1488           00642         ACENDER_LED14
+01DB   1408           00643         ACENDER_LED13
+01DC   208F           00644         call    Delay
+                      00645 
+01DD   2097           00646         call ZerarPortas
+01DE   1508           00647         ACENDER_LED15
+01DF   1488           00648         ACENDER_LED14
+01E0   1408           00649         ACENDER_LED13
+01E1   1587           00650         ACENDER_LED12
+01E2   208F           00651         call    Delay
+                      00652 
+01E3   2097           00653         call ZerarPortas
+01E4   1488           00654         ACENDER_LED14
+01E5   1408           00655         ACENDER_LED13
+01E6   1587           00656         ACENDER_LED12
+01E7   1507           00657         ACENDER_LED11
+01E8   208F           00658         call    Delay
+                      00659 
+01E9   2097           00660         call ZerarPortas
+01EA   1408           00661         ACENDER_LED13
+01EB   1587           00662         ACENDER_LED12
+01EC   1507           00663         ACENDER_LED11
+01ED   1487           00664         ACENDER_LED10
+01EE   208F           00665         call    Delay
+                      00666 
+01EF   2097           00667         call ZerarPortas
+01F0   1587           00668         ACENDER_LED12
+01F1   1507           00669         ACENDER_LED11
+01F2   1487           00670         ACENDER_LED10
+01F3   1407           00671         ACENDER_LED9
+01F4   208F           00672         call    Delay
+                      00673 
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01F5   2097           00674         call ZerarPortas
+01F6   1507           00675         ACENDER_LED11
+01F7   1487           00676         ACENDER_LED10
+01F8   1407           00677         ACENDER_LED9
+01F9   1489           00678         ACENDER_LED8
+01FA   208F           00679         call    Delay
+                      00680 
+01FB   2097           00681         call ZerarPortas
+01FC   1487           00682         ACENDER_LED10
+01FD   1407           00683         ACENDER_LED9
+01FE   1489           00684         ACENDER_LED8
+01FF   1409           00685         ACENDER_LED7
+0200   208F           00686         call    Delay
+                      00687 
+0201   2097           00688         call ZerarPortas
+0202   1407           00689         ACENDER_LED9
+0203   1489           00690         ACENDER_LED8
+0204   1409           00691         ACENDER_LED7
+0205   1685           00692         ACENDER_LED6
+0206   208F           00693         call    Delay
+                      00694 
+0207   2097           00695         call ZerarPortas
+0208   1489           00696         ACENDER_LED8
+0209   1409           00697         ACENDER_LED7
+020A   1685           00698         ACENDER_LED6
+020B   1605           00699         ACENDER_LED5
+020C   208F           00700         call    Delay
+                      00701 
+020D   2097           00702         call ZerarPortas
+020E   1409           00703         ACENDER_LED7
+020F   1685           00704         ACENDER_LED6
+0210   1605           00705         ACENDER_LED5
+0211   1585           00706         ACENDER_LED4
+0212   208F           00707         call    Delay
+                      00708 
+0213   2097           00709         call ZerarPortas
+0214   1685           00710         ACENDER_LED6
+0215   1605           00711         ACENDER_LED5
+0216   1585           00712         ACENDER_LED4
+0217   1505           00713         ACENDER_LED3
+0218   208F           00714         call    Delay
+                      00715 
+0219   2097           00716         call ZerarPortas
+021A   1605           00717         ACENDER_LED5
+021B   1585           00718         ACENDER_LED4
+021C   1505           00719         ACENDER_LED3
+021D   1485           00720         ACENDER_LED2
+021E   208F           00721         call    Delay
+021F   0008           00722         return
+                      00723 
+                      00724 
+0220                  00725 Horario_2Grupos
+0220   2097           00726         call ZerarPortas
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 15
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0221   1485           00727         ACENDER_LED2
+0222   1505           00728         ACENDER_LED3
+0223   1585           00729         ACENDER_LED4
+0224   1687           00730         ACENDER_LED18
+0225   1707           00731         ACENDER_LED19
+0226   1787           00732         ACENDER_LED20
+0227   208F           00733         call    Delay
+                      00734 
+0228   2097           00735         call ZerarPortas
+0229   1505           00736         ACENDER_LED3
+022A   1585           00737         ACENDER_LED4
+022B   1605           00738         ACENDER_LED5
+022C   1707           00739         ACENDER_LED19
+022D   1787           00740         ACENDER_LED20
+022E   1608           00741         ACENDER_LED21
+022F   208F           00742         call    Delay
+                      00743 
+0230   2097           00744         call ZerarPortas
+0231   1585           00745         ACENDER_LED4
+0232   1605           00746         ACENDER_LED5
+0233   1685           00747         ACENDER_LED6
+0234   1787           00748         ACENDER_LED20
+0235   1608           00749         ACENDER_LED21
+0236   1688           00750         ACENDER_LED22
+0237   208F           00751         call    Delay
+                      00752 
+0238   2097           00753         call ZerarPortas
+0239   1605           00754         ACENDER_LED5
+023A   1685           00755         ACENDER_LED6
+023B   1409           00756         ACENDER_LED7
+023C   1608           00757         ACENDER_LED21
+023D   1688           00758         ACENDER_LED22
+023E   1708           00759         ACENDER_LED23
+023F   208F           00760         call    Delay
+                      00761 
+0240   2097           00762         call ZerarPortas
+0241   1685           00763         ACENDER_LED6
+0242   1409           00764         ACENDER_LED7
+0243   1489           00765         ACENDER_LED8
+0244   1688           00766         ACENDER_LED22
+0245   1708           00767         ACENDER_LED23
+0246   1788           00768         ACENDER_LED24
+0247   208F           00769         call    Delay
+                      00770 
+0248   2097           00771         call ZerarPortas
+0249   1409           00772         ACENDER_LED7
+024A   1489           00773         ACENDER_LED8
+024B   1407           00774         ACENDER_LED9
+024C   1708           00775         ACENDER_LED23
+024D   1788           00776         ACENDER_LED24
+024E   1406           00777         ACENDER_LED25
+024F   208F           00778         call    Delay
+                      00779 
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 16
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0250   2097           00780         call ZerarPortas
+0251   1489           00781         ACENDER_LED8
+0252   1407           00782         ACENDER_LED9
+0253   1487           00783         ACENDER_LED10
+0254   1788           00784         ACENDER_LED24
+0255   1406           00785         ACENDER_LED25
+0256   1486           00786         ACENDER_LED26
+0257   208F           00787         call    Delay
+                      00788         
+0258   2097           00789         call ZerarPortas
+0259   1407           00790         ACENDER_LED9
+025A   1487           00791         ACENDER_LED10
+025B   1507           00792         ACENDER_LED11
+025C   1406           00793         ACENDER_LED25
+025D   1486           00794         ACENDER_LED26
+025E   1506           00795         ACENDER_LED27
+025F   208F           00796         call    Delay
+                      00797 
+0260   2097           00798         call ZerarPortas
+0261   1487           00799         ACENDER_LED10
+0262   1507           00800         ACENDER_LED11
+0263   1587           00801         ACENDER_LED12
+0264   1486           00802         ACENDER_LED26
+0265   1506           00803         ACENDER_LED27
+0266   1586           00804         ACENDER_LED28
+0267   208F           00805         call    Delay
+                      00806 
+0268   2097           00807         call ZerarPortas
+0269   1507           00808         ACENDER_LED11
+026A   1587           00809         ACENDER_LED12
+026B   1408           00810         ACENDER_LED13
+026C   1506           00811         ACENDER_LED27
+026D   1586           00812         ACENDER_LED28
+026E   1606           00813         ACENDER_LED29
+026F   208F           00814         call    Delay
+                      00815 
+0270   2097           00816         call ZerarPortas
+0271   1587           00817         ACENDER_LED12
+0272   1408           00818         ACENDER_LED13
+0273   1488           00819         ACENDER_LED14
+0274   1586           00820         ACENDER_LED28
+0275   1606           00821         ACENDER_LED29
+0276   1686           00822         ACENDER_LED30
+0277   208F           00823         call    Delay
+                      00824 
+0278   2097           00825         call ZerarPortas
+0279   1408           00826         ACENDER_LED13
+027A   1488           00827         ACENDER_LED14
+027B   1508           00828         ACENDER_LED15
+027C   1606           00829         ACENDER_LED29
+027D   1686           00830         ACENDER_LED30
+027E   1706           00831         ACENDER_LED31
+027F   208F           00832         call    Delay
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 17
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00833 
+0280   2097           00834         call ZerarPortas
+0281   1488           00835         ACENDER_LED14
+0282   1508           00836         ACENDER_LED15
+0283   1588           00837         ACENDER_LED16
+0284   1686           00838         ACENDER_LED30
+0285   1706           00839         ACENDER_LED31
+0286   1786           00840         ACENDER_LED32
+0287   208F           00841         call    Delay
+                      00842 
+0288   2097           00843         call ZerarPortas
+0289   1508           00844         ACENDER_LED15
+028A   1588           00845         ACENDER_LED16
+028B   1607           00846         ACENDER_LED17
+028C   1706           00847         ACENDER_LED31
+028D   1786           00848         ACENDER_LED32
+028E   1405           00849         ACENDER_LED1
+028F   208F           00850         call    Delay
+                      00851 
+0290   2097           00852         call ZerarPortas
+0291   1588           00853         ACENDER_LED16
+0292   1607           00854         ACENDER_LED17
+0293   1687           00855         ACENDER_LED18
+0294   1786           00856         ACENDER_LED32
+0295   1405           00857         ACENDER_LED1
+0296   1485           00858         ACENDER_LED2
+0297   208F           00859         call    Delay
+                      00860 
+0298   2097           00861         call ZerarPortas
+0299   1607           00862         ACENDER_LED17
+029A   1687           00863         ACENDER_LED18
+029B   1707           00864         ACENDER_LED19
+029C   1405           00865         ACENDER_LED1
+029D   1485           00866         ACENDER_LED2
+029E   1505           00867         ACENDER_LED3
+029F   208F           00868         call    Delay
+                      00869 
+02A0   0008           00870         return
+                      00871 
+                      00872 
+                      00873 
+02A1                  00874 AntiHorario_2Grupos
+02A1   2097           00875         call ZerarPortas
+02A2   1585           00876         ACENDER_LED4
+02A3   1505           00877         ACENDER_LED3
+02A4   1485           00878         ACENDER_LED2
+02A5   1787           00879         ACENDER_LED20
+02A6   1707           00880         ACENDER_LED19
+02A7   1687           00881         ACENDER_LED18
+02A8   208F           00882         call    Delay
+                      00883 
+02A9   2097           00884         call ZerarPortas
+02AA   1505           00885         ACENDER_LED3
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 18
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+02AB   1485           00886         ACENDER_LED2
+02AC   1405           00887         ACENDER_LED1
+02AD   1707           00888         ACENDER_LED19
+02AE   1687           00889         ACENDER_LED18
+02AF   1607           00890         ACENDER_LED17
+02B0   208F           00891         call    Delay
+                      00892 
+02B1   2097           00893         call ZerarPortas
+02B2   1485           00894         ACENDER_LED2
+02B3   1405           00895         ACENDER_LED1
+02B4   1786           00896         ACENDER_LED32
+02B5   1687           00897         ACENDER_LED18
+02B6   1607           00898         ACENDER_LED17
+02B7   1588           00899         ACENDER_LED16
+02B8   208F           00900         call    Delay
+                      00901 
+02B9   2097           00902         call ZerarPortas
+02BA   1405           00903         ACENDER_LED1
+02BB   1786           00904         ACENDER_LED32
+02BC   1706           00905         ACENDER_LED31
+02BD   1607           00906         ACENDER_LED17
+02BE   1588           00907         ACENDER_LED16
+02BF   1508           00908         ACENDER_LED15
+02C0   208F           00909         call    Delay
+                      00910 
+02C1   2097           00911         call ZerarPortas
+02C2   1786           00912         ACENDER_LED32
+02C3   1706           00913         ACENDER_LED31
+02C4   1686           00914         ACENDER_LED30
+02C5   1588           00915         ACENDER_LED16
+02C6   1508           00916         ACENDER_LED15
+02C7   1488           00917         ACENDER_LED14
+02C8   208F           00918         call    Delay
+                      00919 
+02C9   2097           00920         call ZerarPortas
+02CA   1706           00921         ACENDER_LED31
+02CB   1686           00922         ACENDER_LED30
+02CC   1606           00923         ACENDER_LED29
+02CD   1508           00924         ACENDER_LED15
+02CE   1488           00925         ACENDER_LED14
+02CF   1408           00926         ACENDER_LED13
+02D0   208F           00927         call    Delay
+                      00928 
+02D1   2097           00929         call ZerarPortas
+02D2   1686           00930         ACENDER_LED30
+02D3   1606           00931         ACENDER_LED29
+02D4   1586           00932         ACENDER_LED28
+02D5   1488           00933         ACENDER_LED14
+02D6   1408           00934         ACENDER_LED13
+02D7   1587           00935         ACENDER_LED12
+02D8   208F           00936         call    Delay
+                      00937         
+02D9   2097           00938         call ZerarPortas
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 19
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+02DA   1606           00939         ACENDER_LED29
+02DB   1586           00940         ACENDER_LED28
+02DC   1506           00941         ACENDER_LED27
+02DD   1408           00942         ACENDER_LED13
+02DE   1587           00943         ACENDER_LED12
+02DF   1507           00944         ACENDER_LED11
+02E0   208F           00945         call    Delay
+                      00946 
+02E1   2097           00947         call ZerarPortas
+02E2   1586           00948         ACENDER_LED28
+02E3   1506           00949         ACENDER_LED27
+02E4   1486           00950         ACENDER_LED26
+02E5   1587           00951         ACENDER_LED12
+02E6   1507           00952         ACENDER_LED11
+02E7   1487           00953         ACENDER_LED10
+02E8   208F           00954         call    Delay
+                      00955 
+02E9   2097           00956         call ZerarPortas
+02EA   1506           00957         ACENDER_LED27
+02EB   1486           00958         ACENDER_LED26
+02EC   1406           00959         ACENDER_LED25
+02ED   1507           00960         ACENDER_LED11
+02EE   1487           00961         ACENDER_LED10
+02EF   1407           00962         ACENDER_LED9
+02F0   208F           00963         call    Delay
+                      00964 
+02F1   2097           00965         call ZerarPortas
+02F2   1486           00966         ACENDER_LED26
+02F3   1406           00967         ACENDER_LED25
+02F4   1788           00968         ACENDER_LED24
+02F5   1487           00969         ACENDER_LED10
+02F6   1407           00970         ACENDER_LED9
+02F7   1489           00971         ACENDER_LED8
+02F8   208F           00972         call    Delay
+                      00973 
+02F9   2097           00974         call ZerarPortas
+02FA   1406           00975         ACENDER_LED25
+02FB   1788           00976         ACENDER_LED24
+02FC   1708           00977         ACENDER_LED23
+02FD   1407           00978         ACENDER_LED9
+02FE   1489           00979         ACENDER_LED8
+02FF   1409           00980         ACENDER_LED7
+0300   208F           00981         call    Delay
+                      00982 
+0301   2097           00983         call ZerarPortas
+0302   1788           00984         ACENDER_LED24
+0303   1708           00985         ACENDER_LED23
+0304   1688           00986         ACENDER_LED22
+0305   1489           00987         ACENDER_LED8
+0306   1409           00988         ACENDER_LED7
+0307   1685           00989         ACENDER_LED6
+0308   208F           00990         call    Delay
+                      00991 
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 20
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0309   2097           00992         call ZerarPortas
+030A   1708           00993         ACENDER_LED23
+030B   1688           00994         ACENDER_LED22
+030C   1608           00995         ACENDER_LED21
+030D   1409           00996         ACENDER_LED7
+030E   1685           00997         ACENDER_LED6
+030F   1605           00998         ACENDER_LED5
+0310   208F           00999         call    Delay
+                      01000 
+0311   2097           01001         call ZerarPortas
+0312   1688           01002         ACENDER_LED22
+0313   1608           01003         ACENDER_LED21
+0314   1787           01004         ACENDER_LED20
+0315   1685           01005         ACENDER_LED6
+0316   1605           01006         ACENDER_LED5
+0317   1585           01007         ACENDER_LED4
+0318   208F           01008         call    Delay
+                      01009 
+0319   2097           01010         call ZerarPortas
+031A   1608           01011         ACENDER_LED21
+031B   1787           01012         ACENDER_LED20
+031C   1707           01013         ACENDER_LED19
+031D   1605           01014         ACENDER_LED5
+031E   1585           01015         ACENDER_LED4
+031F   1505           01016         ACENDER_LED3
+0320   208F           01017         call    Delay
+                      01018 
+0321   0008           01019         return
+                      01020 
+                      01021 
+0322                  01022 Horario_4Grupos
+0322   2097           01023         call ZerarPortas
+0323   1505           01024         ACENDER_LED3
+0324   1585           01025         ACENDER_LED4
+0325   1507           01026         ACENDER_LED11
+0326   1587           01027         ACENDER_LED12
+0327   1707           01028         ACENDER_LED19
+0328   1787           01029         ACENDER_LED20
+0329   1506           01030         ACENDER_LED27
+032A   1586           01031         ACENDER_LED28
+032B   208F           01032         call    Delay
+                      01033 
+032C   2097           01034         call ZerarPortas
+032D   1585           01035         ACENDER_LED4
+032E   1605           01036         ACENDER_LED5
+032F   1587           01037         ACENDER_LED12
+0330   1408           01038         ACENDER_LED13
+0331   1787           01039         ACENDER_LED20
+0332   1608           01040         ACENDER_LED21
+0333   1586           01041         ACENDER_LED28
+0334   1606           01042         ACENDER_LED29
+0335   208F           01043         call    Delay
+                      01044 
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 21
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0336   2097           01045         call ZerarPortas
+0337   1605           01046         ACENDER_LED5
+0338   1685           01047         ACENDER_LED6
+0339   1408           01048         ACENDER_LED13
+033A   1488           01049         ACENDER_LED14
+033B   1608           01050         ACENDER_LED21
+033C   1688           01051         ACENDER_LED22
+033D   1606           01052         ACENDER_LED29
+033E   1686           01053         ACENDER_LED30
+033F   208F           01054         call    Delay
+                      01055 
+0340   2097           01056         call ZerarPortas
+0341   1685           01057         ACENDER_LED6
+0342   1409           01058         ACENDER_LED7
+0343   1488           01059         ACENDER_LED14
+0344   1508           01060         ACENDER_LED15
+0345   1688           01061         ACENDER_LED22
+0346   1708           01062         ACENDER_LED23
+0347   1686           01063         ACENDER_LED30
+0348   1706           01064         ACENDER_LED31
+0349   208F           01065         call    Delay
+                      01066 
+034A   2097           01067         call ZerarPortas
+034B   1409           01068         ACENDER_LED7
+034C   1489           01069         ACENDER_LED8
+034D   1508           01070         ACENDER_LED15
+034E   1588           01071         ACENDER_LED16
+034F   1708           01072         ACENDER_LED23
+0350   1788           01073         ACENDER_LED24
+0351   1706           01074         ACENDER_LED31
+0352   1786           01075         ACENDER_LED32
+0353   208F           01076         call    Delay
+                      01077 
+0354   2097           01078         call ZerarPortas
+0355   1489           01079         ACENDER_LED8
+0356   1407           01080         ACENDER_LED9
+0357   1588           01081         ACENDER_LED16
+0358   1607           01082         ACENDER_LED17
+0359   1788           01083         ACENDER_LED24
+035A   1406           01084         ACENDER_LED25
+035B   1786           01085         ACENDER_LED32
+035C   1405           01086         ACENDER_LED1
+035D   208F           01087         call    Delay
+                      01088 
+035E   2097           01089         call ZerarPortas
+035F   1407           01090         ACENDER_LED9
+0360   1487           01091         ACENDER_LED10
+0361   1607           01092         ACENDER_LED17
+0362   1687           01093         ACENDER_LED18
+0363   1406           01094         ACENDER_LED25
+0364   1486           01095         ACENDER_LED26
+0365   1405           01096         ACENDER_LED1
+0366   1485           01097         ACENDER_LED2
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 22
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0367   208F           01098         call    Delay
+                      01099         
+0368   2097           01100         call ZerarPortas
+0369   1487           01101         ACENDER_LED10
+036A   1507           01102         ACENDER_LED11
+036B   1687           01103         ACENDER_LED18
+036C   1707           01104         ACENDER_LED19
+036D   1486           01105         ACENDER_LED26
+036E   1506           01106         ACENDER_LED27
+036F   1485           01107         ACENDER_LED2
+0370   1505           01108         ACENDER_LED3
+0371   208F           01109         call    Delay
+0372   0008           01110         return
+                      01111 
+                      01112 
+0373                  01113 AntiHorario_4Grupos
+0373   2097           01114         call ZerarPortas
+0374   1585           01115         ACENDER_LED4
+0375   1505           01116         ACENDER_LED3
+0376   1586           01117         ACENDER_LED28
+0377   1506           01118         ACENDER_LED27
+0378   1787           01119         ACENDER_LED20
+0379   1707           01120         ACENDER_LED19
+037A   1587           01121         ACENDER_LED12
+037B   1507           01122         ACENDER_LED11
+037C   208F           01123         call    Delay
+                      01124 
+037D   2097           01125         call ZerarPortas
+037E   1505           01126         ACENDER_LED3
+037F   1485           01127         ACENDER_LED2
+0380   1506           01128         ACENDER_LED27
+0381   1486           01129         ACENDER_LED26
+0382   1707           01130         ACENDER_LED19
+0383   1687           01131         ACENDER_LED18
+0384   1507           01132         ACENDER_LED11
+0385   1487           01133         ACENDER_LED10
+0386   208F           01134         call    Delay
+                      01135 
+0387   2097           01136         call ZerarPortas
+0388   1485           01137         ACENDER_LED2
+0389   1405           01138         ACENDER_LED1
+038A   1486           01139         ACENDER_LED26
+038B   1406           01140         ACENDER_LED25
+038C   1687           01141         ACENDER_LED18
+038D   1607           01142         ACENDER_LED17
+038E   1487           01143         ACENDER_LED10
+038F   1407           01144         ACENDER_LED9
+0390   208F           01145         call    Delay
+                      01146 
+0391   2097           01147         call ZerarPortas
+0392   1405           01148         ACENDER_LED1
+0393   1786           01149         ACENDER_LED32
+0394   1406           01150         ACENDER_LED25
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 23
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0395   1788           01151         ACENDER_LED24
+0396   1607           01152         ACENDER_LED17
+0397   1588           01153         ACENDER_LED16
+0398   1407           01154         ACENDER_LED9
+0399   1489           01155         ACENDER_LED8
+039A   208F           01156         call    Delay
+                      01157 
+039B   2097           01158         call ZerarPortas
+039C   1786           01159         ACENDER_LED32
+039D   1706           01160         ACENDER_LED31
+039E   1788           01161         ACENDER_LED24
+039F   1708           01162         ACENDER_LED23
+03A0   1588           01163         ACENDER_LED16
+03A1   1508           01164         ACENDER_LED15
+03A2   1489           01165         ACENDER_LED8
+03A3   1409           01166         ACENDER_LED7
+03A4   208F           01167         call    Delay
+                      01168 
+03A5   2097           01169         call ZerarPortas
+03A6   1706           01170         ACENDER_LED31
+03A7   1686           01171         ACENDER_LED30
+03A8   1708           01172         ACENDER_LED23
+03A9   1688           01173         ACENDER_LED22
+03AA   1508           01174         ACENDER_LED15
+03AB   1488           01175         ACENDER_LED14
+03AC   1409           01176         ACENDER_LED7
+03AD   1685           01177         ACENDER_LED6
+03AE   208F           01178         call    Delay
+                      01179 
+03AF   2097           01180         call ZerarPortas
+03B0   1686           01181         ACENDER_LED30
+03B1   1606           01182         ACENDER_LED29
+03B2   1688           01183         ACENDER_LED22
+03B3   1608           01184         ACENDER_LED21
+03B4   1488           01185         ACENDER_LED14
+03B5   1408           01186         ACENDER_LED13
+03B6   1685           01187         ACENDER_LED6
+03B7   1605           01188         ACENDER_LED5
+03B8   208F           01189         call    Delay
+                      01190         
+03B9   2097           01191         call ZerarPortas
+03BA   1606           01192         ACENDER_LED29
+03BB   1586           01193         ACENDER_LED28
+03BC   1608           01194         ACENDER_LED21
+03BD   1787           01195         ACENDER_LED20
+03BE   1408           01196         ACENDER_LED13
+03BF   1587           01197         ACENDER_LED12
+03C0   1605           01198         ACENDER_LED5
+03C1   1585           01199         ACENDER_LED4
+03C2   208F           01200         call    Delay
+                      01201 
+03C3   0008           01202         return
+Warning[205]: Found directive in column 1. (end)
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 24
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      01203 end
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 25
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ABDEN                             00000000
+ABDOVF                            00000007
+ACENDER_LED1                      bsf     LED1
+ACENDER_LED10                     bsf     LED10
+ACENDER_LED11                     bsf     LED11
+ACENDER_LED12                     bsf     LED12
+ACENDER_LED13                     bsf     LED13
+ACENDER_LED14                     bsf     LED14
+ACENDER_LED15                     bsf     LED15
+ACENDER_LED16                     bsf     LED16
+ACENDER_LED17                     bsf     LED17
+ACENDER_LED18                     bsf     LED18
+ACENDER_LED19                     bsf     LED19
+ACENDER_LED2                      bsf     LED2
+ACENDER_LED20                     bsf     LED20
+ACENDER_LED21                     bsf     LED21
+ACENDER_LED22                     bsf     LED22
+ACENDER_LED23                     bsf     LED23
+ACENDER_LED24                     bsf     LED24
+ACENDER_LED25                     bsf     LED25
+ACENDER_LED26                     bsf     LED26
+ACENDER_LED27                     bsf     LED27
+ACENDER_LED28                     bsf     LED28
+ACENDER_LED29                     bsf     LED29
+ACENDER_LED3                      bsf     LED3
+ACENDER_LED30                     bsf     LED30
+ACENDER_LED31                     bsf     LED31
+ACENDER_LED32                     bsf     LED32
+ACENDER_LED4                      bsf     LED4
+ACENDER_LED5                      bsf     LED5
+ACENDER_LED6                      bsf     LED6
+ACENDER_LED7                      bsf     LED7
+ACENDER_LED8                      bsf     LED8
+ACENDER_LED9                      bsf     LED9
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+ANS0                              00000000
+ANS1                              00000001
+ANS10                             00000002
+ANS11                             00000003
+ANS12                             00000004
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 26
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ANS13                             00000005
+ANS2                              00000002
+ANS3                              00000003
+ANS4                              00000004
+ANS5                              00000005
+ANS6                              00000006
+ANS7                              00000007
+ANS8                              00000000
+ANS9                              00000001
+ANSEL                             00000188
+ANSELH                            00000189
+AntiHorario_1Grupo                0000015F
+AntiHorario_2Grupos               000002A1
+AntiHorario_4Grupos               00000373
+BAUDCTL                           00000187
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRG0                              00000000
+BRG1                              00000001
+BRG10                             00000002
+BRG11                             00000003
+BRG12                             00000004
+BRG13                             00000005
+BRG14                             00000006
+BRG15                             00000007
+BRG16                             00000003
+BRG2                              00000002
+BRG3                              00000003
+BRG4                              00000004
+BRG5                              00000005
+BRG6                              00000006
+BRG7                              00000007
+BRG8                              00000000
+BRG9                              00000001
+BRGH                              00000002
+C                                 00000000
+C1CH0                             00000000
+C1CH1                             00000001
+C1IE                              00000005
+C1IF                              00000005
+C1OE                              00000005
+C1ON                              00000007
+C1OUT                             00000006
+C1POL                             00000004
+C1R                               00000002
+C1RSEL                            00000005
+C1SEN                             00000005
+C2CH0                             00000000
+C2CH1                             00000001
+C2IE                              00000006
+C2IF                              00000006
+C2OE                              00000005
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 27
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+C2ON                              00000007
+C2OUT                             00000006
+C2POL                             00000004
+C2R                               00000002
+C2REN                             00000004
+C2RSEL                            00000004
+C2SYNC                            00000000
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHS0                              00000002
+CHS1                              00000003
+CHS2                              00000004
+CHS3                              00000005
+CKE                               00000006
+CKP                               00000004
+CM1CON0                           00000107
+CM2CON0                           00000108
+CM2CON1                           00000109
+CREN                              00000004
+CSRC                              00000007
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+DC1B0                             00000004
+DC1B1                             00000005
+DC2B0                             00000004
+DC2B1                             00000005
+D_A                               00000005
+Delay                             0000008F
+ECCPAS                            0000009C
+ECCPAS0                           00000004
+ECCPAS1                           00000005
+ECCPAS2                           00000006
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 28
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ECCPASE                           00000007
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDAT                             0000010C
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+FVREN                             00000000
+GCEN                              00000007
+GIE                               00000007
+GO                                00000001
+GO_DONE                           00000001
+HTS                               00000002
+Horario_1Grupo                    0000009E
+Horario_2Grupos                   00000220
+Horario_4Grupos                   00000322
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+INDF                              00000000
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IOCB                              00000096
+IOCB0                             00000000
+IOCB1                             00000001
+IOCB2                             00000002
+IOCB3                             00000003
+IOCB4                             00000004
+IOCB5                             00000005
+IOCB6                             00000006
+IOCB7                             00000007
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRP                               00000007
+Interrupt                         00000004
+LED1                              PORTA, 0
+LED10                             PORTC, 1
+LED11                             PORTC, 2
+LED12                             PORTC, 3
+LED13                             PORTD, 0
+LED14                             PORTD, 1
+LED15                             PORTD, 2
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 29
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+LED16                             PORTD, 3
+LED17                             PORTC, 4
+LED18                             PORTC, 5
+LED19                             PORTC, 6
+LED2                              PORTA, 1
+LED20                             PORTC, 7
+LED21                             PORTD, 4
+LED22                             PORTD, 5
+LED23                             PORTD, 6
+LED24                             PORTD, 7
+LED25                             PORTB, 0
+LED26                             PORTB, 1
+LED27                             PORTB, 2
+LED28                             PORTB, 3
+LED29                             PORTB, 4
+LED3                              PORTA, 2
+LED30                             PORTB, 5
+LED31                             PORTB, 6
+LED32                             PORTB, 7
+LED4                              PORTA, 3
+LED5                              PORTA, 4
+LED6                              PORTA, 5
+LED7                              PORTE, 0
+LED8                              PORTE, 1
+LED9                              PORTC, 0
+LTS                               00000001
+MC1OUT                            00000007
+MC2OUT                            00000006
+MSK                               00000093
+Main                              0000001C
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000001
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OERR                              00000001
+OPTION_REG                        00000081
+OSCCON                            0000008F
+OSCTUNE                           00000090
+OSFIE                             00000007
+OSFIF                             00000007
+OSTS                              00000003
+P                                 00000004
+P1M0                              00000006
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 30
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+P1M1                              00000007
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PDC0                              00000000
+PDC1                              00000001
+PDC2                              00000002
+PDC3                              00000003
+PDC4                              00000004
+PDC5                              00000005
+PDC6                              00000006
+PEIE                              00000006
+PEN                               00000002
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+PR2                               00000092
+PRSEN                             00000007
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSSAC0                            00000002
+PSSAC1                            00000003
+PSSBD0                            00000000
+PSSBD1                            00000001
+PSTRCON                           0000009D
+PULSR                             00000002
+PULSS                             00000003
+PWM1CON                           0000009B
+R                                 00000002
+RBIE                              00000003
+RBIF                              00000000
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIDL                             00000006
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+READ_WRITE                        00000002
+RP0                               00000005
+RP1                               00000006
+RSEN                              00000001
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 31
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RX9                               00000006
+RX9D                              00000000
+R_W                               00000002
+S                                 00000003
+SBOREN                            00000004
+SCKP                              00000004
+SCS                               00000000
+SEN                               00000000
+SENDB                             00000003
+SMP                               00000007
+SPBRG                             00000099
+SPBRGH                            0000009A
+SPEN                              00000007
+SR0                               00000006
+SR1                               00000007
+SRCON                             00000185
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPMSK                            00000093
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+STRA                              00000000
+STRB                              00000001
+STRC                              00000002
+STRD                              00000003
+STRSYNC                           00000004
+SWDTEN                            00000000
+SYNC                              00000004
+Start                             00000005
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1GIV                             00000007
+T1GSS                             00000001
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 32
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+T2CKPS1                           00000001
+T2CON                             00000012
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1CS                            00000001
+TMR1GE                            00000006
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISB                             00000086
+TRISC                             00000087
+TRISD                             00000088
+TRISE                             00000089
+TRMT                              00000001
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+ULPWUE                            00000005
+ULPWUIE                           00000002
+ULPWUIF                           00000002
+VCFG0                             00000004
+VCFG1                             00000005
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             00000097
+VREN                              00000007
+VROE                              00000006
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 33
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+VRR                               00000005
+VRSS                              00000004
+W                                 00000000
+WCOL                              00000007
+WDTCON                            00000105
+WDTPS0                            00000001
+WDTPS1                            00000002
+WDTPS2                            00000003
+WDTPS3                            00000004
+WPUB                              00000095
+WPUB0                             00000000
+WPUB1                             00000001
+WPUB2                             00000002
+WPUB3                             00000003
+WPUB4                             00000004
+WPUB5                             00000005
+WPUB6                             00000006
+WPUB7                             00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WUE                               00000001
+Z                                 00000002
+ZerarPortas                       00000097
+_BOR21V                           00003EFF
+_BOR40V                           00003FFF
+_BOR_NSLEEP                       00003EFF
+_BOR_OFF                          00003CFF
+_BOR_ON                           00003FFF
+_BOR_SBODEN                       00003DFF
+_CONFIG1                          00002007
+_CONFIG2                          00002008
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003F7F
+_CP_OFF                           00003FFF
+_CP_ON                            00003FBF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         00001FFF
+_EC_OSC                           00003FFB
+_EXTRC                            00003FFF
+_EXTRCIO                          00003FFE
+_EXTRC_OSC_CLKOUT                 00003FFF
+_EXTRC_OSC_NOCLKOUT               00003FFE
+_FCMEN_OFF                        000037FF
+_FCMEN_ON                         00003FFF
+_HS_OSC                           00003FFA
+_IESO_OFF                         00003BFF
+_IESO_ON                          00003FFF
+_INTOSC                           00003FFD
+_INTOSCIO                         00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FF8
+MPASM  5.37                            01.ASM   12-17-2010  17:31:17         PAGE 34
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_LVP_OFF                          00002FFF
+_LVP_ON                           00003FFF
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FEF
+_WDT_OFF                          00003FF7
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FF9
+__16F887                          00000001
+__DEBUG                           1
+vardelay1                         00000020
+vardelay2                         00000021
+vardelay3                         00000022
+vardelay4                         00000023
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0140 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0180 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+01C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0200 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0240 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0280 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+02C0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0300 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0340 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0380 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+03C0 : XXXX------------ ---------------- ---------------- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   961
+Program Memory Words Free:  7231
+
+
+Errors   :     0
+Warnings :     6 reported,     0 suppressed
+Messages :     7 reported,     0 suppressed
+
+
